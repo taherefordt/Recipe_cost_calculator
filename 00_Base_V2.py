@@ -1,27 +1,157 @@
 import pandas
 import math
 
+
 # grams_converter converts any unit to grams, this allows for a more standard calculation process
-from unit_converter_v2 import grams_converter
+def grams_converter(ingredient_quantity, ingredient_unit):
+
+    # dictionary of units and their size relative to grams, these are used for the conversion
+    # this works on the assumption that: 1ml = 1g
+    conversion_factors = {
+        "mg": 0.001,
+        "g": 1,
+        "kg": 1000,
+        "ml": 1,
+        "l": 1000
+    }
+
+    # finds the weight of the ingredient (in grams) from multiplying it by the factor above
+    weight_grams = float(conversion_factors[ingredient_unit]) * float(ingredient_quantity)
+
+    # returns the converted quantity
+    return weight_grams
+
 
 # num_check allows the user to input a float or int, and returns it.
 # if the response is neither it sends an error and tries again
-from recipe_num_check import num_check
+def num_check(question, flint, low=None, exit_code=None):
+    while True:
 
-# a pre-typed set of instructions for the user to read if they wish
-from instructions import instructions
+        # if the number doesn't need a low, a different error is generated compared to when there is one
+        if low is not None:
+            error = f"|>=+--- Please enter a number that is more than or equal to {low} ---+=<|"
 
-# not_blank allows for responses to be anything but "<blank>"
-from not_blank import not_blank
+        else:
+            error = "|>=+--- Please enter a number ---+=<|"
 
-# multi_choice_checker allows for questions that have a select few answers to be attempted until a valid answer is given
-# e.g. a yes_no checker
-from multi_choice_check import multi_choice_checker
+        # continues to attempt code below until a valid answer is given
+        try:
+            response = input(question)
 
-# units_checker asks the user questions about an ingredients units and returns valid responses (such as ml or kg)
-from units_checker_v2 import units_checker
+            # check to see if response is the exit code and return it
+            if response == exit_code:
+                return response
+
+            # change the response into an integer or float depending on flint
+            if flint == "int":
+                response_conv = int(response)
+
+            else:
+                response_conv = float(response)
+
+            # Checks response is not too low, not use of 'is not' keywords
+            if low is not None and response_conv < low:
+                print(error)
+                continue
+
+            return response
+
+        # checks input is a number, if not sends an error
+        except ValueError:
+            print(error)
+
+            continue
 
 
+# a pre typed set of instructions that is called upon later.
+def instructions():
+    print('''\n
+|>=+------------- instructions --------------=+<|
+y
+
+''')
+
+
+# returns anything the user responds with so long as it's not blank
+def not_blank(question):
+    # loop to repeat until a valid answer is received
+    while True:
+
+        response = input(question)
+
+        # if the response is blank, print an error
+        if response == "":
+            print("|>=+--- Your response to this cannot be blank ---+=<|")
+
+        # if the response is not blank return response
+        else:
+            return response
+
+
+# this function is able to ask a question to the user
+# if the answer they respond with is valid for the question the program returns it
+def multi_choice_checker(question, valid_answer, error):
+    # Loop to keep the question going till answered properly
+    while True:
+
+        response = input(question).lower()
+
+        # checks if the user response is one of the valid answers
+        for word in valid_answer:
+
+            # if the response shares the same first letter or is the same word, the program returns the answer
+            if response == word[:1] or response == word:
+                return word
+
+        print(error)
+
+
+# this function checks what unit a specific ingredient is measured in
+def units_checker(phase, ingredient):
+    # list of valid units
+    unit_list = ["mg", "g", "kg", "ml", "l"]
+
+    # log = L or G = Liquid Or Solid
+    log_units = ["mg", "ml"]
+
+    # Loop to keep the question going till answered properly
+
+    while True:
+
+        if phase == "recipe":
+
+            response = multi_choice_checker(f"|>=+--- What unit is {ingredient} measured in? ---+=<| ", unit_list,
+                                            "|>=+--- please answer with any of the following: ml, l, mg, g, kg ---+=<|"
+                                            ).lower()
+
+        else:
+            response = multi_choice_checker(f"|>=+--- What unit is '{ingredient}' measured in? ---+=<| ", unit_list,
+                                            "|>=+--- please answer with any of the following: ml, l, mg, g, kg ---+=<|"
+                                            ).lower()
+
+        if response == "m":
+
+            l_or_g = multi_choice_checker("|>=+--- Did you mean ml or mg? ---+=<| ", log_units,
+                                          "|>=+--- please answer with any of the following: ml, l, mg, g, kg ---+=<|"
+                                          ).lower()
+
+            if l_or_g == "mg":
+                return "mg"
+
+            else:
+                return "ml"
+
+        elif response in unit_list:
+
+            for word in unit_list:
+                if response == word[:1] or response == word:
+                    return word
+
+        else:
+            print("|>=+--- please answer with any of the following: ml, l, mg, g, kg ---+=<|")
+
+
+# converts floats to numbers rounded to 2 dp
 def currency(x):
     return f"${x:.2f}"
 
@@ -68,8 +198,6 @@ show_instructions = multi_choice_checker("|>=+---- Would you like to look at the
 # prints the instructions if yes
 if show_instructions == "yes":
     instructions()
-
-print("")
 
 # gets the name of the recipe from the user
 recipe_name = not_blank("|>=+--- What is the name of your dish? ---+=<| ")

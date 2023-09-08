@@ -48,17 +48,3 @@ def multi_choice(question, error, valid_answer):
         print(error)
         print()
 
-
-yes_no_ans = ["yes", "no"]
-test_plan = ["yes", "no", 'Y', 'N', 'YeS', 'Maybe']
-
-for item in test_plan:
-    yes_or_no = choice_checker("Do you want to see the instructions? ", "no", "yes",
-                               "Please answer with a yes or no", yes_no_ans)
-    if yes_or_no == "yes":
-        print("instructions")
-    else:
-        print("program continues")
-
-    print("")
-

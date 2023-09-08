@@ -1,0 +1,21 @@
+3 ingredient ice cream
+
+|>=+--- 3 ingredient ice cream Ingredients ---+=<|
+
+                Amount: Unit:
+Ingredient:                  
+cream               750    ml
+eggs                  2      
+vanilla extract    12.5    ml
+
+|>=+------- Store items -------+=<|
+
+                Amount: Unit:  Price:
+Ingredient:                          
+cream                 1     l  $24.99
+eggs                 12        $12.50
+vanilla extract      75    ml  $17.00
+
+Total cost to buy: $54.49
+Total cost to make: $23.66
+Cost per Serving: $7.89

@@ -4,21 +4,20 @@ def instructions():
     print('''\n
 |>=+------------- instructions --------------=+<|
 
-1. Start by inputting the name of the dish,
+1. Start by entering the name of the dish,
    and how many the recipe serves.
 
-2. Next, input the names, 
-   amounts, and units (if used)
-   of each ingredient in the recipe, 
-   and type 'xxx' when done.
+2. Next, enter the names, amounts, 
+   and units (if any) of each ingredient in the recipe, 
+   type 'xxx' as the next ingredient's name when done.
+
+3. After you're done with that, enter the price, 
+   unit (if used), and amount (in said unit)
+   of each ingredient found in-store.
+
+4. The recipe cost calculator will calculate
+   - the cost of fulfilling the ingredient requirements
+   - the cost of the ingredient amounts used in the recipe
+   - the cost to make 1 serving of the recipe
    
-3. After you're done with that, enter the Price, 
-   amount, and unit of each ingredient found
-   in-store.
-
-4. The recipe cost calculator will Calculate
-  - the total cost of the recipe, 
-  - how much it will cost to buy all the ingredients from scratch, 
-  - and the cost per serving.
-
 ''')

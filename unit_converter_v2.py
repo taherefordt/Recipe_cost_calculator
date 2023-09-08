@@ -17,11 +17,3 @@ def grams_converter(ingredient_quantity, ingredient_unit):
 
     # returns the converted quantity
     return weight_grams
-
-
-while True:
-
-    unit = input("Unit = ")
-    quantity = input("Quantity = ")
-    converted_amount = grams_converter(quantity, unit)
-    print(converted_amount, "grams")

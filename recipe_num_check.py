@@ -37,4 +37,3 @@ def num_check(question, flint, low=None, exit_code=None):
             print(error)
 
             continue
-

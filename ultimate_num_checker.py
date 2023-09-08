@@ -55,14 +55,3 @@ def num_check(question, flint, low=None, high=None, exit_code=None):
             print(error)
             continue
 
-
-num = num_check("num", float)
-
-print(num)
-
-try:
-
-    response = input("question")
-
-except ValueError:
-    print("error")

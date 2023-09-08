@@ -15,5 +15,4 @@ def multi_choice_checker(question, valid_answer, error):
                 return word
 
         print(error)
-        print()
 
